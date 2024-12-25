@@ -226,13 +226,13 @@ const OfflineClients = () => {
     if (e.target.value === 'all') {
       setCurrentPage(0)
       setCountPage(200)
-      setCurrentConnectors(searchStorage)
+      setCurrentClients(searchStorage)
     } else {
       setCurrentPage(0)
       setCountPage(e.target.value)
-      setCurrentConnectors(searchStorage.slice(0, e.target.value))
+      setCurrentClients(searchStorage.slice(0, e.target.value))
     }
-  }
+  } 
 
   const changeStart = (e) => {
     setBeginDay(new Date(new Date(e).setUTCHours(0, 0, 0, 0)));

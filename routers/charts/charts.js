@@ -57,11 +57,11 @@ module.exports.getDaily = async (req, res) => {
     try {
         const { clinica, beginDay, endDay } = req.body;
 
-        const clients = await OfflineClient.find({
+        const clients = await OfflineConnector.find({
             clinica,
             createdAt: {
-                $gte: new Date(beginDay),
-                $lte: new Date(endDay)
+                $gte: beginDay,
+                $lt: endDay
             }
         })
             .lean()

@@ -644,7 +644,9 @@ export const StatsionarReportTable = ({
                   <th className="border py-1 bg-alotrade text-[16px] text-center">
                     To'langan
                   </th>
-
+                  <th className="border py-1 bg-alotrade text-[16px] text-center">
+                    Bugungi jami
+                  </th>
                   <th className="border py-1 bg-alotrade text-[16px] text-center align-center">
                     Naqd
                   </th>
@@ -693,6 +695,9 @@ export const StatsionarReportTable = ({
                         <Money value={connector.totalWhileNow} />
                       </td>
                       <td className="border py-1 text-[16px] text-right">
+                        <Money value={connector.payment} />
+                      </td>
+                      <td className="border py-1 text-[16px] text-right">
                         <Money value={connector.cash} />
                       </td>
                       <td className="border py-1 text-[16px] text-right">
@@ -736,6 +741,17 @@ export const StatsionarReportTable = ({
                     <Money
                       value={connectors.reduce(
                         (acc, curr) => acc + curr.totalWhileNow,
+                        0
+                      )}
+                    />
+                  </td>
+                  <td
+                    className={`border py-1 font-weight-bold text-right text-[16px]`}
+                    style={{ maxWidth: "30px !important" }}
+                  >
+                    <Money
+                      value={connectors.reduce(
+                        (acc, curr) => acc + curr.payment,
                         0
                       )}
                     />
