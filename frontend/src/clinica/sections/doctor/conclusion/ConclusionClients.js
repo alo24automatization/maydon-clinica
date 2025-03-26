@@ -493,15 +493,6 @@ export const ConclusionClients = () => {
                                 >
                                   <FontAwesomeIcon icon={faPenAlt} />
                                 </button>
-                                // <button
-                                //   disabled={loading}
-                                //   onClick={() =>
-                                //     !loading && deleteClient(connector)
-                                //   }
-                                //   className="btn btn-danger py-0"
-                                // >
-                                //   <FontAwesomeIcon icon={faTrash} />
-                                // </button>
                               </td>
                             </tr>
                           );
