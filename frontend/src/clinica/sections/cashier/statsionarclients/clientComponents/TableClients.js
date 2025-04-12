@@ -49,26 +49,18 @@ export const TableClients = ({
 
   const getTotalprice = (connector) => {
     let roomprice = 0;
-    if (connector?.room?.endday) {
-      const beginday = new Date(connector?.room?.beginday).setHours(0,0,0,0);
-      const now = new Date(connector?.room?.endday).setHours(0,0,0,0);
+    if (connector?.room?.beginday && connector?.room?.room?.price) {
+      const beginday = new Date(connector.room.beginday);
+      const endday = connector.room.endday
+        ? new Date(connector.room.endday)
+        : new Date()
 
-      const timeDifference = now - beginday;
-      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-      roomprice = connector?.room?.room?.price * daysDifference;
-    } else {
-      let begin = new Date(connector?.room?.beginday);
-      let today = new Date();
-      const day = Math.round(
-        Math.abs(
-          (new Date(new Date(today).setHours(0, 0, 0, 0)).getTime() -
-            new Date(new Date(begin).setHours(0, 0, 0, 0)).getTime()) /
-            (24 * 60 * 60 * 1000)
-        )
-      );
-
-      roomprice = connector?.room?.room?.price * day;
+      let daysDifference = Math.floor((endday - beginday) / (1000 * 60 * 60 * 24)) + 1;
+      console.log(daysDifference);
+      // На всякий случай, если дата выписки случайно раньше даты поступления
+      if (daysDifference < 1) daysDifference = 1;
+      console.log(connector?.room?.room?.price);
+      roomprice = connector.room.room.price * daysDifference;
     }
 
     let servicesTotal = connector?.services?.reduce((prev, s) => {
@@ -90,8 +82,8 @@ export const TableClients = ({
     const debt =
       connector?.payments.length > 0
         ? getTotalprice(connector) -
-          (connector?.discount?.discount || 0) -
-          connector.payments.reduce((prev, el) => prev + el.payment, 0)
+        (connector?.discount?.discount || 0) -
+        connector.payments.reduce((prev, el) => prev + el.payment, 0)
         : 0;
     return debt;
   };
@@ -289,7 +281,7 @@ export const TableClients = ({
                         {new Date(connector?.room?.beginday).toLocaleTimeString().split(' ')[0]}
                       </td>
                       <td className="border py-1 text-[16px] text-right">
-                        {connector?.room?.endday &&`${new Date(connector?.room?.endday).toLocaleDateString()} ${new Date(connector?.room?.endday).toLocaleTimeString().split(' ')[0]}`}
+                        {connector?.room?.endday && `${new Date(connector?.room?.endday).toLocaleDateString()} ${new Date(connector?.room?.endday).toLocaleTimeString().split(' ')[0]}`}
                       </td>
                       <td className="border py-1 text-[16px] text-right">
                         {getTotalprice(connector)}
@@ -309,25 +301,25 @@ export const TableClients = ({
                       {!location.pathname.includes(
                         "/alo24/statsionarreport"
                       ) && (
-                        <td className="border py-1 text-[16px] text-center">
-                          {loading ? (
-                            <button className="btn btn-success" disabled>
-                              <span className="spinner-border spinner-border-sm"></span>
-                              Loading...
-                            </button>
-                          ) : (
-                            <button
-                              className="btn btn-success py-0"
-                              onClick={() => {
-                                changeClient(connector, key);
-                                setVisible(true);
-                              }}
-                            >
-                              <FontAwesomeIcon icon={faMoneyBill} />
-                            </button>
-                          )}
-                        </td>
-                      )}
+                          <td className="border py-1 text-[16px] text-center">
+                            {loading ? (
+                              <button className="btn btn-success" disabled>
+                                <span className="spinner-border spinner-border-sm"></span>
+                                Loading...
+                              </button>
+                            ) : (
+                              <button
+                                className="btn btn-success py-0"
+                                onClick={() => {
+                                  changeClient(connector, key);
+                                  setVisible(true);
+                                }}
+                              >
+                                <FontAwesomeIcon icon={faMoneyBill} />
+                              </button>
+                            )}
+                          </td>
+                        )}
                       <td className="border py-1 text-[16px] text-center">
                         {loading ? (
                           <button className="btn btn-success" disabled>
@@ -469,7 +461,7 @@ export const TableClients = ({
                       <td className="border py-1 text-[16px] text-right">
                         {new Date(connector?.room?.beginday).toDateString()}
                         {' '}
-                     {new Date(connector?.room?.beginday).toLocaleTimeString().split(' ')[0]}
+                        {new Date(connector?.room?.beginday).toLocaleTimeString().split(' ')[0]}
                       </td>
                       <td className="border py-1 text-[16px] text-right">
                         {connector?.room?.endday && `${new Date(connector?.room?.endday).toDateString()} ${new Date(connector?.room?.endday).toLocaleTimeString().split(' ')[0]}}`}
@@ -492,25 +484,25 @@ export const TableClients = ({
                       {!location.pathname.includes(
                         "/alo24/statsionarreport"
                       ) && (
-                        <td className="border py-1 text-[16px] text-center">
-                          {loading ? (
-                            <button className="btn btn-success" disabled>
-                              <span className="spinner-border spinner-border-sm"></span>
-                              Loading...
-                            </button>
-                          ) : (
-                            <button
-                              className="btn btn-success py-0"
-                              onClick={() => {
-                                changeClient(connector, key);
-                                setVisible(true);
-                              }}
-                            >
-                              <FontAwesomeIcon icon={faMoneyBill} />
-                            </button>
-                          )}
-                        </td>
-                      )}
+                          <td className="border py-1 text-[16px] text-center">
+                            {loading ? (
+                              <button className="btn btn-success" disabled>
+                                <span className="spinner-border spinner-border-sm"></span>
+                                Loading...
+                              </button>
+                            ) : (
+                              <button
+                                className="btn btn-success py-0"
+                                onClick={() => {
+                                  changeClient(connector, key);
+                                  setVisible(true);
+                                }}
+                              >
+                                <FontAwesomeIcon icon={faMoneyBill} />
+                              </button>
+                            )}
+                          </td>
+                        )}
                       <td className="border py-1 text-[16px] text-center">
                         {loading ? (
                           <button className="btn btn-success" disabled>
@@ -541,56 +533,56 @@ export const TableClients = ({
           <div>
             <table className="table m-0 table-sm" id="statsionarreport-table">
               <thead>
-              <tr>
-                <th className="border py-1 bg-alotrade text-[16px] text-center">
-                  №
-                </th>
-                <th className="border py-1 bg-alotrade text-[16px] text-center">
-                  F.I.O
-                </th>
-                <th className="border py-1 bg-alotrade text-[16px] text-center">
-                  To'lov sanasi
-                </th>
-                <th className="border py-1 bg-alotrade text-[16px] text-center">
-                  Tel
-                </th>
-                <th className="border py-1 bg-alotrade text-[16px] text-center">
-                  ID
-                </th>
-                <th className="border py-1 bg-alotrade text-[16px] text-center">
-                  Jami to'lov
-                </th>
-                <th className="border py-1 bg-alotrade text-[16px] text-center">
-                  Jami to'langan
-                </th>
-                <th className="border py-1 bg-alotrade text-[16px] text-center align-center">
-                  To'landi
-                </th>
-                {/*{!location.pathname.includes("/alo24/statsionarreport") && (*/}
-                {/*    <th className="border py-1 bg-alotrade text-[16px]">To'lov</th>*/}
-                {/*)}*/}
+                <tr>
+                  <th className="border py-1 bg-alotrade text-[16px] text-center">
+                    №
+                  </th>
+                  <th className="border py-1 bg-alotrade text-[16px] text-center">
+                    F.I.O
+                  </th>
+                  <th className="border py-1 bg-alotrade text-[16px] text-center">
+                    To'lov sanasi
+                  </th>
+                  <th className="border py-1 bg-alotrade text-[16px] text-center">
+                    Tel
+                  </th>
+                  <th className="border py-1 bg-alotrade text-[16px] text-center">
+                    ID
+                  </th>
+                  <th className="border py-1 bg-alotrade text-[16px] text-center">
+                    Jami to'lov
+                  </th>
+                  <th className="border py-1 bg-alotrade text-[16px] text-center">
+                    Jami to'langan
+                  </th>
+                  <th className="border py-1 bg-alotrade text-[16px] text-center align-center">
+                    To'landi
+                  </th>
+                  {/*{!location.pathname.includes("/alo24/statsionarreport") && (*/}
+                  {/*    <th className="border py-1 bg-alotrade text-[16px]">To'lov</th>*/}
+                  {/*)}*/}
 
-                {/*<th className="border py-1 bg-alotrade text-[16px]">Chek</th>*/}
-              </tr>
+                  {/*<th className="border py-1 bg-alotrade text-[16px]">Chek</th>*/}
+                </tr>
               </thead>
 
               <tbody>
-              {connectors.map((connector, key) => {
-                return (
+                {connectors.map((connector, key) => {
+                  return (
                     <tr key={key}>
                       <td
-                          className={`border py-1 font-weight-bold text-right text-[16px]`}
-                          style={{maxWidth: "30px !important"}}
+                        className={`border py-1 font-weight-bold text-right text-[16px]`}
+                        style={{ maxWidth: "30px !important" }}
                       >
                         {currentPage * countPage + key + 1}
                       </td>
                       <td className="border py-1 text-[16px] font-weight-bold">
                         {connector.client.lastname +
-                            " " +
-                            connector.client.firstname}
+                          " " +
+                          connector.client.firstname}
                       </td>
                       <td className="border py-1 text-[16px] text-right">
-                        <Moment date={connector.createdAt} format={"DD.MM.yyyy HH:mm:ss"}/>
+                        <Moment date={connector.createdAt} format={"DD.MM.yyyy HH:mm:ss"} />
                       </td>
                       <td className="border py-1 text-[16px] text-right">
                         +998{connector.client.phone}
@@ -599,17 +591,17 @@ export const TableClients = ({
                         {connector.client.id}
                       </td>
                       <td className="border py-1 text-[16px] text-right">
-                        <Money value={connector.total}/>
+                        <Money value={connector.total} />
                       </td>
                       <td className="border py-1 text-[16px] text-right">
-                        <Money value={connector.totalWhileNow}/>
+                        <Money value={connector.totalWhileNow} />
                       </td>
                       <td className="border py-1 text-[16px] text-right">
-                        <Money value={connector.payment}/>
+                        <Money value={connector.payment} />
                       </td>
                     </tr>
-                );
-              })}
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -108,8 +108,8 @@ export const SmallCheck = ({
           >
             {connector &&
               new Date().toLocaleDateString() +
-                " " +
-                new Date().toLocaleTimeString()}
+              " " +
+              new Date().toLocaleTimeString()}
           </div>
         </div>
         <div className="flex justify-between items-center">
@@ -150,6 +150,25 @@ export const SmallCheck = ({
           >
             {connector.client &&
               new Date(connector.client.born).toLocaleDateString("ru-RU")}
+          </div>
+        </div>
+        <div className="flex justify-between items-center">
+          <div>
+            <strong
+              style={{ color: "black", fontSize: "20px", fontFamily: "times" }}
+            >
+              {t("Mijoz raqami")}:{" "}
+            </strong>
+          </div>
+          <div
+            style={{
+              fontWeight: "bold",
+              color: "black",
+              fontSize: "20px",
+              fontFamily: "times",
+            }}
+          >
+            +998{connector.client && connector.client.phone}
           </div>
         </div>
         <div className="flex justify-between items-center">
@@ -230,41 +249,10 @@ export const SmallCheck = ({
           {smallCheckType === "done"
             ? connector.services &&
               connector.services.length ===
-                [...connector.services].filter(
-                  (service) => service?.department?.probirka
-                ).length
+              [...connector.services].filter(
+                (service) => service?.department?.probirka
+              ).length
               ? connector.services &&
-                connector.services.map(
-                  (service, index) =>
-                    service.refuse === false && (
-                      <div className="mb-1">
-                        <div className="text-left text-[20px] font-bold">
-                          {index + 1} {service.service.name}
-                        </div>
-                        <div className="text-right text-[20px] font-bold">
-                          {service.pieces} * {service.service.price} ={" "}
-                          {service.service.price * service.pieces}
-                        </div>
-                      </div>
-                    )
-                )
-              : connector.services &&
-                connector.services.map(
-                  (service, index) =>
-                    service.refuse === false &&
-                    !service?.department?.probirka && (
-                      <div className="mb-1">
-                        <div className="text-left text-[20px] font-bold">
-                          {index + 1} {service.service.name}
-                        </div>
-                        <div className="text-right text-[20px] font-bold">
-                          {service.pieces} * {service.service.price} ={" "}
-                          {service.service.price * service.pieces}
-                        </div>
-                      </div>
-                    )
-                )
-            : connector.services &&
               connector.services.map(
                 (service, index) =>
                   service.refuse === false && (
@@ -278,7 +266,38 @@ export const SmallCheck = ({
                       </div>
                     </div>
                   )
-              )}
+              )
+              : connector.services &&
+              connector.services.map(
+                (service, index) =>
+                  service.refuse === false &&
+                  !service?.department?.probirka && (
+                    <div className="mb-1">
+                      <div className="text-left text-[20px] font-bold">
+                        {index + 1} {service.service.name}
+                      </div>
+                      <div className="text-right text-[20px] font-bold">
+                        {service.pieces} * {service.service.price} ={" "}
+                        {service.service.price * service.pieces}
+                      </div>
+                    </div>
+                  )
+              )
+            : connector.services &&
+            connector.services.map(
+              (service, index) =>
+                service.refuse === false && (
+                  <div className="mb-1">
+                    <div className="text-left text-[20px] font-bold">
+                      {index + 1} {service.service.name}
+                    </div>
+                    <div className="text-right text-[20px] font-bold">
+                      {service.pieces} * {service.service.price} ={" "}
+                      {service.service.price * service.pieces}
+                    </div>
+                  </div>
+                )
+            )}
         </div>
 
         {/* {connector?.services && connector.services.some((service) => service.refuse === true) && <div className="mt-4">
@@ -309,11 +328,11 @@ export const SmallCheck = ({
                       : 0)
                   );
                 }, 0) +
-                  connector.products.reduce((summ, product) => {
-                    return (
-                      summ + product.product.price * parseInt(product.pieces)
-                    );
-                  }, 0)}
+                connector.products.reduce((summ, product) => {
+                  return (
+                    summ + product.product.price * parseInt(product.pieces)
+                  );
+                }, 0)}
             </div>
           </div>
           <div className=" p-1 mt-2 flex justify-between items-center text-[24px] font-bold">
@@ -330,10 +349,10 @@ export const SmallCheck = ({
                   (prev, el) => prev + ((el.refuse && el.service.price) || 0),
                   0
                 ) +
-                  connector.products.reduce(
-                    (prev, el) => prev + ((el.refuse && el.product.price) || 0),
-                    0
-                  )}
+                connector.products.reduce(
+                  (prev, el) => prev + ((el.refuse && el.product.price) || 0),
+                  0
+                )}
             </div>
           </div>
           <div className="p-1 mt-2 flex justify-between items-center text-[24px] font-bold">
@@ -464,8 +483,8 @@ export const SmallCheck = ({
               >
                 {connector &&
                   new Date(connector.createdAt).toLocaleDateString() +
-                    " " +
-                    new Date(connector.createdAt).toLocaleTimeString()}
+                  " " +
+                  new Date(connector.createdAt).toLocaleTimeString()}
               </div>
             </div>
             <div className="flex justify-between items-center">

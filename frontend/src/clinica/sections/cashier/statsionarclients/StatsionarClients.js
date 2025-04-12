@@ -1,13 +1,13 @@
-import {useToast} from "@chakra-ui/react";
-import React, {useCallback, useContext, useEffect, useState} from "react";
-import {AuthContext} from "../../../context/AuthContext";
-import {useHttp} from "../../../hooks/http.hook";
-import {Modal} from "../components/Modal";
-import {RegisterClient} from "./clientComponents/RegisterClient";
-import {TableClients} from "./clientComponents/TableClients";
-import {checkData, checkServices} from "./checkData/checkData";
-import {CheckModalStatsionar} from "../../reseption/components/ModalCheckStatsionar";
-import {useTranslation} from "react-i18next";
+import { useToast } from "@chakra-ui/react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../context/AuthContext";
+import { useHttp } from "../../../hooks/http.hook";
+import { Modal } from "../components/Modal";
+import { RegisterClient } from "./clientComponents/RegisterClient";
+import { TableClients } from "./clientComponents/TableClients";
+import { checkData, checkServices } from "./checkData/checkData";
+import { CheckModalStatsionar } from "../../reseption/components/ModalCheckStatsionar";
+import { useTranslation } from "react-i18next";
 // import {
 //   checkClientData,
 //   checkProductsData,
@@ -29,7 +29,7 @@ export const StatsionarClients = () => {
     const [modal1, setModal1] = useState(false);
     //====================================================================
     //====================================================================
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     //====================================================================
     //====================================================================
     // RegisterPage
@@ -72,7 +72,7 @@ export const StatsionarClients = () => {
 
     //====================================================================
     //====================================================================
-    const {request, loading} = useHttp();
+    const { request, loading } = useHttp();
     const auth = useContext(AuthContext);
 
     //====================================================================
@@ -90,7 +90,7 @@ export const StatsionarClients = () => {
                 const data = await request(
                     `/api/cashier/statsionar/getall`,
                     "POST",
-                    {clinica: auth && auth.clinica._id, beginDay, endDay, type},
+                    { clinica: auth && auth.clinica._id, beginDay, endDay, type },
                     {
                         Authorization: `Bearer ${auth.token}`,
                     }
@@ -261,7 +261,7 @@ export const StatsionarClients = () => {
         setProducts(prods);
 
         setClient(JSON.parse(JSON.stringify(connector.client)));
-        setConnector({...connector});
+        setConnector({ ...connector });
 
         let payments = connector.payments.reduce((summa, payment) => {
             return summa + payment.payment;
@@ -270,36 +270,27 @@ export const StatsionarClients = () => {
         setPayments(payments);
 
         let roomprice = 0;
-        if (connector.room.endday) {
-            const beginday = new Date(connector?.room?.beginday).setHours(0,0,0,0);
-            const now = new Date(connector.room.endday).setHours(0,0,0,0);
+        if (connector?.room?.beginday && connector?.room?.room?.price) {
+            const beginday = new Date(connector.room.beginday);
+            const endday = connector.room.endday
+                ? new Date(connector.room.endday)
+                : new Date()
 
-            const timeDifference = now - beginday;
-            const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
+            let daysDifference = Math.floor((endday - beginday) / (1000 * 60 * 60 * 24)) + 1;
+            console.log(daysDifference);
+            // На всякий случай, если дата выписки случайно раньше даты поступления
+            if (daysDifference < 1) daysDifference = 1;
+            console.log(connector?.room?.room?.price);
             roomprice = connector.room.room.price * daysDifference;
+
             setRoom({
                 price: connector.room.room.price,
                 day: daysDifference,
                 totalprice: roomprice,
                 type: connector.room.room.type,
             });
-        } else {
-            const beginday = new Date(connector?.room?.beginday).setHours(0,0,0,0);
-            const now = new Date().setHours(0,0,0,0);
-
-            const timeDifference = now - beginday;
-            const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-            roomprice = connector.room.room.price * daysDifference;
-            setRoom({
-                price: connector.room.room.price,
-                day: daysDifference || 1,
-                totalprice: roomprice,
-                type: connector.room.room.type,
-            });
         }
-
+        console.log(roomprice);
         total += roomprice;
         setPayment({
             total: total,
@@ -492,7 +483,7 @@ export const StatsionarClients = () => {
             delete s.comment;
             setDiscount(s);
         } else {
-            setDiscount({...discount, comment: e.target.value});
+            setDiscount({ ...discount, comment: e.target.value });
         }
     };
 
@@ -654,8 +645,8 @@ export const StatsionarClients = () => {
                 `/api/cashier/statsionar/payment`,
                 "POST",
                 {
-                    payment: {...payment},
-                    discount: {...discount},
+                    payment: { ...payment },
+                    discount: { ...discount },
                     services: [...services],
                     products: [...products],
                 },
@@ -691,7 +682,7 @@ export const StatsionarClients = () => {
                 `/api/cashier/statsionar/prepayment`,
                 "POST",
                 {
-                    payment: {...payment},
+                    payment: { ...payment },
                     services: [...services],
                     products: [...products],
                 },
@@ -783,7 +774,7 @@ export const StatsionarClients = () => {
             const data = await request(
                 `/api/cashier/statsionar/getall`,
                 "POST",
-                {clinica: auth && auth.clinica._id, clientborn: new Date(e)},
+                { clinica: auth && auth.clinica._id, clientborn: new Date(e) },
                 {
                     Authorization: `Bearer ${auth.token}`,
                 }
@@ -809,15 +800,15 @@ export const StatsionarClients = () => {
         setCurrentConnectors([]);
 
         if (e.target.value === "todayPayments" || e.target.value === "today")
-          setBeginDay(
-            (() => {
-              const curr = new Date();
-              curr.setDate(new Date().getDate() - 1);
-              curr.setUTCHours(23, 59, 59, 59);
-              return curr;
-            })()
-          );
-        else{
+            setBeginDay(
+                (() => {
+                    const curr = new Date();
+                    curr.setDate(new Date().getDate() - 1);
+                    curr.setUTCHours(23, 59, 59, 59);
+                    return curr;
+                })()
+            );
+        else {
             setBeginDay(
                 (() => {
                     const curr = new Date();
@@ -871,17 +862,15 @@ export const StatsionarClients = () => {
                         <div className="row">
                             <div className="col-12 text-end">
                                 <button
-                                    className={`btn bg-alotrade text-white mb-2 w-100 ${
-                                        visible ? "d-none" : ""
-                                    }`}
+                                    className={`btn bg-alotrade text-white mb-2 w-100 ${visible ? "d-none" : ""
+                                        }`}
                                     onClick={changeVisible}
                                 >
                                     {t("Malumot")}
                                 </button>
                                 <button
-                                    className={`btn bg-alotrade text-white mb-2 w-100 ${
-                                        visible ? "" : "d-none"
-                                    }`}
+                                    className={`btn bg-alotrade text-white mb-2 w-100 ${visible ? "" : "d-none"
+                                        }`}
                                     onClick={changeVisible}
                                 >
                                     {t("Malumot")}
@@ -967,26 +956,26 @@ export const StatsionarClients = () => {
                             <div className="card-body">
                                 <table className="table table-sm">
                                     <tfoot>
-                                    <tr>
-                                        <th className="text-right w-50">{t("Jami to'lov")}:</th>
-                                        <th className="text-left w-50">{totalpayment}</th>
-                                    </tr>
-                                    <tr>
-                                        <th className="text-right">{t("Chegirma")}:</th>
-                                        <th className="text-left">{discount.discount}</th>
-                                    </tr>
-                                    <tr>
-                                        <th className="text-right">{t("To'langan")}:</th>
-                                        <th className="text-left">{payments}</th>
-                                    </tr>
-                                    <tr>
-                                        <th className="text-right">{t("Qarz")}:</th>
-                                        <th className="text-left">{payment.debt}</th>
-                                    </tr>
-                                    <tr>
-                                        <th className="text-right">{t("To'lanayotgan")}:</th>
-                                        <th className="text-left">{payment.payment}</th>
-                                    </tr>
+                                        <tr>
+                                            <th className="text-right w-50">{t("Jami to'lov")}:</th>
+                                            <th className="text-left w-50">{totalpayment}</th>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-right">{t("Chegirma")}:</th>
+                                            <th className="text-left">{discount.discount}</th>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-right">{t("To'langan")}:</th>
+                                            <th className="text-left">{payments}</th>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-right">{t("Qarz")}:</th>
+                                            <th className="text-left">{payment.debt}</th>
+                                        </tr>
+                                        <tr>
+                                            <th className="text-right">{t("To'lanayotgan")}:</th>
+                                            <th className="text-left">{payment.payment}</th>
+                                        </tr>
                                     </tfoot>
                                 </table>
                             </div>
@@ -995,18 +984,18 @@ export const StatsionarClients = () => {
                         <div className="card-body">
                             <table className="table table-sm">
                                 <tfoot>
-                                <tr>
-                                    <th className="text-right w-50">{t("Jami to'lov")}:</th>
-                                    <th className="text-left w-50">{totalpayment}</th>
-                                </tr>
-                                <tr>
-                                    <th className="text-right">{t("Oldindan to'lov")}:</th>
-                                    <th className="text-left">{payments}</th>
-                                </tr>
-                                <tr>
-                                    <th className="text-right">{t("To'lanayotgan summa")}:</th>
-                                    <th className="text-left">{payment.payment}</th>
-                                </tr>
+                                    <tr>
+                                        <th className="text-right w-50">{t("Jami to'lov")}:</th>
+                                        <th className="text-left w-50">{totalpayment}</th>
+                                    </tr>
+                                    <tr>
+                                        <th className="text-right">{t("Oldindan to'lov")}:</th>
+                                        <th className="text-left">{payments}</th>
+                                    </tr>
+                                    <tr>
+                                        <th className="text-right">{t("To'lanayotgan summa")}:</th>
+                                        <th className="text-left">{payment.payment}</th>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>

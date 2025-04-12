@@ -4,12 +4,17 @@ import { useReactToPrint } from "react-to-print";
 import CheckStatsionarClient from "../statsionarclients/clientComponents/CheckStatsionarClient";
 import { AuthContext } from "../../../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { SmallCheckStatsionar } from "../../cashier/components/SmallCheckStatsionar";
+// import TurnCheck from "../../cashier/components/TurnCheck";
 
 export const CheckModalStatsionar = ({
   modal,
   connector,
   setModal,
   baseUrl,
+  smallCheckType
 }) => {
   const { t } = useTranslation();
 
@@ -17,9 +22,14 @@ export const CheckModalStatsionar = ({
 
   const auth = useContext(AuthContext);
 
-  const componentRef = useRef();
+  const componentRef = useRef()
+  const smallcheckref = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
+  })
+
+  const handlePrint2 = useReactToPrint({
+    content: () => smallcheckref.current,
   });
 
   useEffect(() => {
@@ -62,6 +72,21 @@ export const CheckModalStatsionar = ({
               />
             </div>
           </div>
+          <div className="d-none">
+            <div ref={smallcheckref} className="w-[10.4cm] p-2">
+              {auth?.clinica && (
+                <SmallCheckStatsionar
+                  smallCheckType={smallCheckType}
+                  user={auth?.user}
+                  baseUrl={baseUrl}
+                  clinica={auth?.clinica}
+                  connector={connector}
+                  qr={qr}
+                />
+              )
+              }
+            </div>
+          </div>
           <div className="modal-footer custom">
             <div className="left-side">
               <button
@@ -72,6 +97,14 @@ export const CheckModalStatsionar = ({
                 }}
               >
                 {t("Bekor qilish")}
+              </button>
+            </div>
+            <div className="right-side">
+              <button
+                onClick={handlePrint2}
+                className="btn btn-link success w-100"
+              >
+                <FontAwesomeIcon fontSize={32} icon={faPrint} />
               </button>
             </div>
             <div className="divider" />

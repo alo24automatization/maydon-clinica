@@ -31,7 +31,7 @@ export const LoginPage = ({ sections, setSection, changeHandler, loginHandler })
             <div className="container-login100">
                 <div className="wrap-login100">
                     <Tilt options={defaultOptions} className="login100-pic">
-                        <img src={Logo} alt="IMG" />
+                        <img className="mt-4" src={Logo} alt="IMG" />
                     </Tilt>
 
                     <form className="login100-form validate-form">
@@ -60,9 +60,9 @@ export const LoginPage = ({ sections, setSection, changeHandler, loginHandler })
                             <span className="focus-input100"></span>
                             <span className="symbol-input100">
                                 <button onClick={(e) => {
-                                        e.preventDefault()
-                                        setPasswordType(!passwordType)
-                                    }}>
+                                    e.preventDefault()
+                                    setPasswordType(!passwordType)
+                                }}>
                                     {!passwordType ? <i className="fa fa-eye-slash" aria-hidden="true"></i> : <i className="fa fa-eye" aria-hidden="true"></i>}
                                 </button>
                             </span>

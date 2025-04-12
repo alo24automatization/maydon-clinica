@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import AloLogo from "../../../../clinica_logo.jpg";
+import AloLogo from "../../../../logo.png";
 import { AuthContext } from "../../../context/AuthContext";
 import { useHttp } from "../../../hooks/http.hook";
 import { NavbarItemDesktop } from "./NavbarItemDesktop";
@@ -159,7 +159,7 @@ const AppNavbar = ({ links, user, userType }) => {
                     src={
                       userType.type === "Admin"
                         ? userType.baseUrl &&
-                          `${userType.baseUrl}/api/upload/file/${user.image}`
+                        `${userType.baseUrl}/api/upload/file/${user.image}`
                         : baseUrl && `${baseUrl}/api/upload/file/${user.image}`
                     }
                     alt={'#404'}
@@ -182,9 +182,9 @@ const AppNavbar = ({ links, user, userType }) => {
                       src={
                         userType.type === "Admin"
                           ? userType.baseUrl &&
-                            `${userType.baseUrl}/api/upload/file/${user.image}`
+                          `${userType.baseUrl}/api/upload/file/${user.image}`
                           : baseUrl &&
-                            `${baseUrl}/api/upload/file/${user.image}`
+                          `${baseUrl}/api/upload/file/${user.image}`
                       }
                       alt={'404'}
                     />

@@ -133,8 +133,8 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                         {t("Kelgan vaqti")}:{" "}
                         {connector &&
                           new Date(connector.createdAt).toLocaleDateString() +
-                            " " +
-                            new Date(connector.createdAt).toLocaleTimeString()}
+                          " " +
+                          new Date(connector.createdAt).toLocaleTimeString()}
                       </div>
                     </li>
                   </ul>
@@ -201,11 +201,9 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                 style={{ fontSize: "20px", fontFamily: "times" }}
               >
                 {t("Tug'ilgan yil")}:{" "}
-                {connector?.client?.born ||
-                  (user?.born &&
-                    new Date(
-                      connector?.client?.born || user?.born
-                    ).toLocaleDateString())}
+                {connector?.client?.born && new Date(
+                  connector?.client?.born
+                ).toLocaleDateString('ru-RU')}
               </h6>
             </div>
           </div>
@@ -360,119 +358,119 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                 connector.services.some((s) => s.refuse)) ||
                 (connector.products &&
                   connector.products.some((p) => p.refuse))) && (
-                <h2 className="text-[21px] font-bold mt-4 mb-2">
-                  {t("Qaytarilgan summa")}
-                </h2>
-              )}
+                  <h2 className="text-[21px] font-bold mt-4 mb-2">
+                    {t("Qaytarilgan summa")}
+                  </h2>
+                )}
               {((connector.services &&
                 connector.services.some((s) => s.refuse)) ||
                 (connector.products &&
                   connector.products.some((p) => p.refuse))) && (
-                <table
-                  className="table table-bordered text-dark mt-2"
-                  style={{ fontSize: "11pt", fontFamily: "times" }}
-                >
-                  <thead className="text-dark">
-                    <tr className="bg-white">
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        №
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Nomi")}
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Xona")}
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Navbat")}
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Soni")}
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Summasi")}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {connector.services &&
-                      connector.services.map((service, index) => {
-                        return (
-                          service.refuse && (
-                            <tr
-                              key={index}
-                              className="bg-white"
-                              style={{ fontFamily: "times", fontSize: "12pt" }}
-                            >
-                              <td className="py-0 border text-right font-weight-bold">
-                                {index + 1}
-                              </td>
-                              <td className="py-0 border pl-2 font-weight-bold">
-                                {service.service.name}
-                              </td>
-                              <td className="py-0 border pl-2 font-weight-bold">
-                                {service?.department?.room}
-                              </td>
-                              <td className="py-0 border pl-2 text-right">
-                                {service.turn}
-                              </td>
-                              <td className="py-0 border pl-2 text-right">
-                                {service.pieces}
-                              </td>
-                              <td className="py-0 border pl-2 text-right">
-                                {service.service.price * service.pieces}
-                              </td>
-                            </tr>
-                          )
-                        );
-                      })}
-                    {connector.products &&
-                      connector.products.map((product, index) => {
-                        return (
-                          product.refuse && (
-                            <tr
-                              key={index}
-                              className="bg-white"
-                              style={{ fontFamily: "times", fontSize: "12pt" }}
-                            >
-                              <td className="py-0 border text-right font-weight-bold">
-                                {index + 1}
-                              </td>
-                              <td className="py-0 border pl-2 font-weight-bold">
-                                {product.product.name}
-                              </td>
-                              <td className="py-0 border pl-2 text-right"></td>
-                              <td className="py-0 border pl-2 text-right">
-                                {product.pieces}
-                              </td>
-                              <td className="py-0 border pl-2 text-right">
-                                {product.product.price * product.pieces}
-                              </td>
-                            </tr>
-                          )
-                        );
-                      })}
-                  </tbody>
-                </table>
-              )}
+                  <table
+                    className="table table-bordered text-dark mt-2"
+                    style={{ fontSize: "11pt", fontFamily: "times" }}
+                  >
+                    <thead className="text-dark">
+                      <tr className="bg-white">
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          №
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Nomi")}
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Xona")}
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Navbat")}
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Soni")}
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Summasi")}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {connector.services &&
+                        connector.services.map((service, index) => {
+                          return (
+                            service.refuse && (
+                              <tr
+                                key={index}
+                                className="bg-white"
+                                style={{ fontFamily: "times", fontSize: "12pt" }}
+                              >
+                                <td className="py-0 border text-right font-weight-bold">
+                                  {index + 1}
+                                </td>
+                                <td className="py-0 border pl-2 font-weight-bold">
+                                  {service.service.name}
+                                </td>
+                                <td className="py-0 border pl-2 font-weight-bold">
+                                  {service?.department?.room}
+                                </td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {service.turn}
+                                </td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {service.pieces}
+                                </td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {service.service.price * service.pieces}
+                                </td>
+                              </tr>
+                            )
+                          );
+                        })}
+                      {connector.products &&
+                        connector.products.map((product, index) => {
+                          return (
+                            product.refuse && (
+                              <tr
+                                key={index}
+                                className="bg-white"
+                                style={{ fontFamily: "times", fontSize: "12pt" }}
+                              >
+                                <td className="py-0 border text-right font-weight-bold">
+                                  {index + 1}
+                                </td>
+                                <td className="py-0 border pl-2 font-weight-bold">
+                                  {product.product.name}
+                                </td>
+                                <td className="py-0 border pl-2 text-right"></td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {product.pieces}
+                                </td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {product.product.price * product.pieces}
+                                </td>
+                              </tr>
+                            )
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                )}
               <div className="my-4 flex justify-between items-center">
                 <div className="text-right text-[16px] font-weight-bold">
                   {t("Jami")}:{" "}
@@ -486,12 +484,12 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                           : 0)
                       );
                     }, 0) +
-                      connector.products.reduce((summ, product) => {
-                        return (
-                          summ +
-                          product.product.price * parseInt(product.pieces)
-                        );
-                      }, 0)}
+                    connector.products.reduce((summ, product) => {
+                      return (
+                        summ +
+                        product.product.price * parseInt(product.pieces)
+                      );
+                    }, 0)}
                   <br />
                   QQS:{" "}
                   {connector.products &&
@@ -501,7 +499,7 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                         summ +
                         (service.refuse === false
                           ? (service.service.price / 100) *
-                            (service?.service?.priceNDS || 0)
+                          (service?.service?.priceNDS || 0)
                           : 0)
                       );
                     }, 0)}
@@ -514,24 +512,24 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                         summ +
                         (service.refuse === false
                           ? (service.service.price / 100) *
-                            (service?.service?.priceNDS || 0)
+                          (service?.service?.priceNDS || 0)
                           : 0)
                       );
                     }, 0) +
-                      connector.services.reduce((summ, service) => {
-                        return (
-                          summ +
-                          (service.refuse === false
-                            ? service.service.price * parseInt(service.pieces)
-                            : 0)
-                        );
-                      }, 0) +
-                      connector.products.reduce((summ, product) => {
-                        return (
-                          summ +
-                          product.product.price * parseInt(product.pieces)
-                        );
-                      }, 0)}
+                    connector.services.reduce((summ, service) => {
+                      return (
+                        summ +
+                        (service.refuse === false
+                          ? service.service.price * parseInt(service.pieces)
+                          : 0)
+                      );
+                    }, 0) +
+                    connector.products.reduce((summ, product) => {
+                      return (
+                        summ +
+                        product.product.price * parseInt(product.pieces)
+                      );
+                    }, 0)}
                 </div>
                 <div className="text-right text-[16px] font-weight-bold">
                   {t("Chegirma")}: {connector?.discount?.discount || 0}
@@ -546,11 +544,11 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                         prev + ((el.refuse && el.service.price) || 0),
                       0
                     ) +
-                      connector.products.reduce(
-                        (prev, el) =>
-                          prev + ((el.refuse && el.product.price) || 0),
-                        0
-                      )}
+                    connector.products.reduce(
+                      (prev, el) =>
+                        prev + ((el.refuse && el.product.price) || 0),
+                      0
+                    )}
                 </div>
                 <div className="text-right text-[16px] font-weight-bold">
                   {t("Qarz")}:{" "}
@@ -688,8 +686,8 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                         {t("Kelgan vaqti")}:{" "}
                         {connector &&
                           new Date(connector.createdAt).toLocaleDateString() +
-                            " " +
-                            new Date(connector.createdAt).toLocaleTimeString()}
+                          " " +
+                          new Date(connector.createdAt).toLocaleTimeString()}
                       </div>
                     </li>
                   </ul>
@@ -756,11 +754,9 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                 style={{ fontSize: "20px", fontFamily: "times" }}
               >
                 {t("Tug'ilgan yil")}:{" "}
-                {connector?.client?.born ||
-                  (user?.born &&
-                    new Date(
-                      connector?.client?.born || user?.born
-                    ).toLocaleDateString())}
+                {connector?.client?.born && new Date(
+                  connector?.client?.born
+                ).toLocaleDateString('ru-RU')}
               </h6>
             </div>
           </div>
@@ -915,119 +911,119 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                 connector.services.some((s) => s.refuse)) ||
                 (connector.products &&
                   connector.products.some((p) => p.refuse))) && (
-                <h2 className="text-[21px] font-bold mt-4 mb-2">
-                  {t("Qaytarilgan summa")}
-                </h2>
-              )}
+                  <h2 className="text-[21px] font-bold mt-4 mb-2">
+                    {t("Qaytarilgan summa")}
+                  </h2>
+                )}
               {((connector.services &&
                 connector.services.some((s) => s.refuse)) ||
                 (connector.products &&
                   connector.products.some((p) => p.refuse))) && (
-                <table
-                  className="table table-bordered text-dark mt-2"
-                  style={{ fontSize: "11pt", fontFamily: "times" }}
-                >
-                  <thead className="text-dark">
-                    <tr className="bg-white">
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        №
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Nomi")}
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Xona")}
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Navbat")}
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Soni")}
-                      </th>
-                      <th
-                        className="text-center text-black border py-0 "
-                        style={{ fontSize: "11pt", fontFamily: "times" }}
-                      >
-                        {t("Summasi")}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {connector.services &&
-                      connector.services.map((service, index) => {
-                        return (
-                          service.refuse && (
-                            <tr
-                              key={index}
-                              className="bg-white"
-                              style={{ fontFamily: "times", fontSize: "12pt" }}
-                            >
-                              <td className="py-0 border text-right font-weight-bold">
-                                {index + 1}
-                              </td>
-                              <td className="py-0 border pl-2 font-weight-bold">
-                                {service.service.name}
-                              </td>
-                              <td className="py-0 border pl-2 font-weight-bold">
-                                {service?.department?.room}
-                              </td>
-                              <td className="py-0 border pl-2 text-right">
-                                {service.turn}
-                              </td>
-                              <td className="py-0 border pl-2 text-right">
-                                {service.pieces}
-                              </td>
-                              <td className="py-0 border pl-2 text-right">
-                                {service.service.price * service.pieces}
-                              </td>
-                            </tr>
-                          )
-                        );
-                      })}
-                    {connector.products &&
-                      connector.products.map((product, index) => {
-                        return (
-                          product.refuse && (
-                            <tr
-                              key={index}
-                              className="bg-white"
-                              style={{ fontFamily: "times", fontSize: "12pt" }}
-                            >
-                              <td className="py-0 border text-right font-weight-bold">
-                                {index + 1}
-                              </td>
-                              <td className="py-0 border pl-2 font-weight-bold">
-                                {product.product.name}
-                              </td>
-                              <td className="py-0 border pl-2 text-right"></td>
-                              <td className="py-0 border pl-2 text-right">
-                                {product.pieces}
-                              </td>
-                              <td className="py-0 border pl-2 text-right">
-                                {product.product.price * product.pieces}
-                              </td>
-                            </tr>
-                          )
-                        );
-                      })}
-                  </tbody>
-                </table>
-              )}
+                  <table
+                    className="table table-bordered text-dark mt-2"
+                    style={{ fontSize: "11pt", fontFamily: "times" }}
+                  >
+                    <thead className="text-dark">
+                      <tr className="bg-white">
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          №
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Nomi")}
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Xona")}
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Navbat")}
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Soni")}
+                        </th>
+                        <th
+                          className="text-center text-black border py-0 "
+                          style={{ fontSize: "11pt", fontFamily: "times" }}
+                        >
+                          {t("Summasi")}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {connector.services &&
+                        connector.services.map((service, index) => {
+                          return (
+                            service.refuse && (
+                              <tr
+                                key={index}
+                                className="bg-white"
+                                style={{ fontFamily: "times", fontSize: "12pt" }}
+                              >
+                                <td className="py-0 border text-right font-weight-bold">
+                                  {index + 1}
+                                </td>
+                                <td className="py-0 border pl-2 font-weight-bold">
+                                  {service.service.name}
+                                </td>
+                                <td className="py-0 border pl-2 font-weight-bold">
+                                  {service?.department?.room}
+                                </td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {service.turn}
+                                </td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {service.pieces}
+                                </td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {service.service.price * service.pieces}
+                                </td>
+                              </tr>
+                            )
+                          );
+                        })}
+                      {connector.products &&
+                        connector.products.map((product, index) => {
+                          return (
+                            product.refuse && (
+                              <tr
+                                key={index}
+                                className="bg-white"
+                                style={{ fontFamily: "times", fontSize: "12pt" }}
+                              >
+                                <td className="py-0 border text-right font-weight-bold">
+                                  {index + 1}
+                                </td>
+                                <td className="py-0 border pl-2 font-weight-bold">
+                                  {product.product.name}
+                                </td>
+                                <td className="py-0 border pl-2 text-right"></td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {product.pieces}
+                                </td>
+                                <td className="py-0 border pl-2 text-right">
+                                  {product.product.price * product.pieces}
+                                </td>
+                              </tr>
+                            )
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                )}
               <div className="my-4 flex justify-between items-center">
                 <div className="text-right text-[16px] font-weight-bold">
                   {t("Jami")}:{" "}
@@ -1041,12 +1037,12 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                           : 0)
                       );
                     }, 0) +
-                      connector.products.reduce((summ, product) => {
-                        return (
-                          summ +
-                          product.product.price * parseInt(product.pieces)
-                        );
-                      }, 0)}
+                    connector.products.reduce((summ, product) => {
+                      return (
+                        summ +
+                        product.product.price * parseInt(product.pieces)
+                      );
+                    }, 0)}
                   <br />
                   QQS:{" "}
                   {connector.products &&
@@ -1056,7 +1052,7 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                         summ +
                         (service.refuse === false
                           ? (service.service.price / 100) *
-                            (service?.service?.priceNDS || 0)
+                          (service?.service?.priceNDS || 0)
                           : 0)
                       );
                     }, 0)}
@@ -1069,24 +1065,24 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                         summ +
                         (service.refuse === false
                           ? (service.service.price / 100) *
-                            (service?.service?.priceNDS || 0)
+                          (service?.service?.priceNDS || 0)
                           : 0)
                       );
                     }, 0) +
-                      connector.services.reduce((summ, service) => {
-                        return (
-                          summ +
-                          (service.refuse === false
-                            ? service.service.price * parseInt(service.pieces)
-                            : 0)
-                        );
-                      }, 0) +
-                      connector.products.reduce((summ, product) => {
-                        return (
-                          summ +
-                          product.product.price * parseInt(product.pieces)
-                        );
-                      }, 0)}
+                    connector.services.reduce((summ, service) => {
+                      return (
+                        summ +
+                        (service.refuse === false
+                          ? service.service.price * parseInt(service.pieces)
+                          : 0)
+                      );
+                    }, 0) +
+                    connector.products.reduce((summ, product) => {
+                      return (
+                        summ +
+                        product.product.price * parseInt(product.pieces)
+                      );
+                    }, 0)}
                 </div>
                 <div className="text-right text-[16px] font-weight-bold">
                   {t("Chegirma")}: {connector?.discount?.discount || 0}
@@ -1101,11 +1097,11 @@ export const Check = ({ baseUrl, clinica, connector, qr, user }) => {
                         prev + ((el.refuse && el.service.price) || 0),
                       0
                     ) +
-                      connector.products.reduce(
-                        (prev, el) =>
-                          prev + ((el.refuse && el.product.price) || 0),
-                        0
-                      )}
+                    connector.products.reduce(
+                      (prev, el) =>
+                        prev + ((el.refuse && el.product.price) || 0),
+                      0
+                    )}
                 </div>
                 <div className="text-right text-[16px] font-weight-bold">
                   {t("Qarz")}:{" "}

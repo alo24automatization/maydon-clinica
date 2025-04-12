@@ -7,26 +7,18 @@ const CheckStatsionarClient = ({ connector, qr, clinica, baseUrl }) => {
 
   const getTotalprice = (connector) => {
     let roomprice = 0;
-    if (connector?.room?.endday) {
-      const beginday = new Date(connector?.room?.beginday).setHours(0,0,0,0);
-      const now = new Date(connector?.room?.endday).setHours(0,0,0,0);
+    if (connector?.room?.beginday && connector?.room?.room?.price) {
+      const beginday = new Date(connector.room.beginday)
+      const endday = connector.room.endday
+        ? new Date(connector.room.endday)
+        : new Date()
 
-      const timeDifference = now - beginday;
-      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      let daysDifference = Math.floor((endday - beginday) / (1000 * 60 * 60 * 24)) + 1;
 
-      roomprice = connector?.room?.room?.price * daysDifference;
-    } else {
-      let begin = new Date(connector?.room?.beginday);
-      let today = new Date();
-      const day = Math.round(
-        Math.abs(
-          (new Date(new Date(today).setHours(0, 0, 0, 0)).getTime() -
-            new Date(new Date(begin).setHours(0, 0, 0, 0)).getTime()) /
-            (24 * 60 * 60 * 1000)
-        )
-      );
+      // На всякий случай, если дата выписки случайно раньше даты поступления
+      if (daysDifference < 1) daysDifference = 1;
 
-      roomprice = connector?.room?.room?.price * day;
+      const roomprice = connector.room.room.price * daysDifference;
     }
 
     let servicesTotal = connector?.services?.reduce((prev, s) => {
@@ -48,8 +40,8 @@ const CheckStatsionarClient = ({ connector, qr, clinica, baseUrl }) => {
     const debt =
       connector?.payments?.length > 0
         ? getTotalprice(connector) -
-          (connector?.discount?.discount || 0) -
-          connector.payments.reduce((prev, el) => prev + el.payment, 0)
+        (connector?.discount?.discount || 0) -
+        connector.payments.reduce((prev, el) => prev + el.payment, 0)
         : 0;
     return debt;
   };
@@ -400,7 +392,7 @@ const CheckStatsionarClient = ({ connector, qr, clinica, baseUrl }) => {
                           {new Date(service.createdAt).toLocaleDateString()}
                         </td>
                         <td className="text-right border py-1">
-                        {new Date(service.createdAt).toLocaleTimeString().split(' ')[0]}
+                          {new Date(service.createdAt).toLocaleTimeString().split(' ')[0]}
                         </td>
                       </tr>
                     );
@@ -436,61 +428,35 @@ const CheckStatsionarClient = ({ connector, qr, clinica, baseUrl }) => {
                     {connector.room && connector.room.room.type}
                   </td>
                   <td className="text-right border py-1 text-bold">
-                    {connector?.room?.endday
-                      ? Math.round(
-                          Math.abs(
-                            (new Date(connector?.room?.endday).setHours(0,0,0,0) -
-                              new Date(connector?.room?.beginday).setHours(0, 0, 0, 0)) /
-                            (24 * 60 * 60 * 1000)
-                          )
-                        )
-                      : Math.round(
-                          Math.abs(
-                            (new Date(connector?.room?.beginday).setHours(
-                              0,
-                              0,
-                              0,
-                              0
-                            ) -
-                              new Date().setHours(0, 0, 0, 0)) /
-                              (24 * 60 * 60 * 1000)
-                          )
-                        )}
+                    {(() => {
+                      const beginday = new Date(connector?.room?.beginday).setHours(0, 0, 0, 0);
+                      const endday = connector?.room?.endday
+                        ? new Date(connector.room.endday).setHours(0, 0, 0, 0)
+                        : new Date().setHours(0, 0, 0, 0);
+
+                      let days = Math.floor((endday - beginday) / (1000 * 60 * 60 * 24)) + 1;
+                      if (days < 1) days = 1;
+
+                      return days;
+                    })()}
                   </td>
                   <td className="text-right border py-1 text-bold">
                     {connector?.room && connector.room.room.price}
                   </td>
                   <td className="text-right border py-1">
-                    {(connector?.room?.endday
-                      ? Math.round(
-                          Math.abs(
-                            (new Date(connector?.room?.endday).setHours(
-                              0,
-                              0,
-                              0,
-                              0
-                            ) -
-                              new Date(connector?.room?.beginday).setHours(
-                                0,
-                                0,
-                                0,
-                                0
-                              )) /
-                              (24 * 60 * 60 * 1000)
-                          )
-                        )
-                      : Math.round(
-                          Math.abs(
-                            (new Date(connector?.room?.beginday).setHours(
-                              0,
-                              0,
-                              0,
-                              0
-                            ) -
-                              new Date().setHours(0, 0, 0, 0)) /
-                              (24 * 60 * 60 * 1000)
-                          )
-                        )) * connector?.room?.room?.price}
+                    {(() => {
+                      const beginday = new Date(connector?.room?.beginday)
+                      const endday = connector?.room?.endday
+                        ? new Date(connector.room.endday)
+                        : new Date()
+
+                      let days = Math.floor((endday - beginday) / (1000 * 60 * 60 * 24)) + 1;
+                      if (days < 1) days = 1;
+
+                      const pricePerDay = connector?.room?.room?.price || 0;
+                      return days * pricePerDay;
+                    })()}
+
                   </td>
                   <td className="text-right border py-1 text-bold">
                     {connector?.room &&
@@ -557,9 +523,9 @@ const CheckStatsionarClient = ({ connector, qr, clinica, baseUrl }) => {
                     <td className="text-right">
                       {connector?.payments && connector?.payments.length > 0
                         ? connector?.payments.reduce(
-                            (prev, el) => prev + el.payment,
-                            0
-                          )
+                          (prev, el) => prev + el.payment,
+                          0
+                        )
                         : 0}
                     </td>
                   </tr>
