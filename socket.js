@@ -9,7 +9,7 @@ const initializeSocket = (server) => {
   const io = socketIo(server, {
     path: "/ws",
     cors: {
-      origin: ["http://localhost:3000", "https://unical-med.uz"],
+      origin: ["http://localhost:3000", "https://89.116.29.23"],
       methods: ["GET", "POST"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true,
@@ -36,8 +36,8 @@ const initializeSocket = (server) => {
       if (data) {
         try {
           const clients = await getDepartmentsOnline(
-              clinicaId,
-              departments_id
+            clinicaId,
+            departments_id
           );
 
           io.emit("departmentsOnlineClientsData", clients);
