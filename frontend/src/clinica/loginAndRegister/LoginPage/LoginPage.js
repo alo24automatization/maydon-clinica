@@ -1,7 +1,7 @@
 import "./fonts/font-awesome-4.7.0/css/font-awesome.min.css"
 import "./css/util.css"
 import "./css/main.css"
-import Logo from './images/img-01.png'
+import Logo from './../../../logo.png'
 import { Tilt } from 'react-tilt'
 import { useTranslation } from "react-i18next"
 import Translaste from "../../../translation/Translate"
