@@ -4,6 +4,9 @@ const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
     // ... other configuration settings
+    devServer: {
+        allowedHosts: ["all"], // Разрешить все хосты (например, для разработки)
+    },
     plugins: [
         new webpack.ProvidePlugin({
             process: 'process/browser',
