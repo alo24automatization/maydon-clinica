@@ -115,8 +115,9 @@ const TurnCheck = (props) => {
                             className={
                                 "border-2 mt-3 border-black font-semibold text-center text-6xl px-4 py-2"
                             }
+                            style={{ fontWeight: "bold", color: "black", fontSize: connector?.client.brondate ? "48px" : '100px' }}
                         >
-                            {item?.letter + "-" + item?.turn}
+                            {connector?.client?.brondate ? formatDate(connector?.client?.brondate) + " " + connector?.client?.bronTime : item?.letter + "-" + item?.turn}
                         </span>
                         <div className={"grid grid-cols-2 mt-1"}>
                             <span

@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.00596eb2.css",
-    "main.js": "/static/js/main.cfa13635.js",
+    "main.js": "/static/js/main.46c58d2e.js",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.6878d55e3615ccf40c38.svg",
     "static/media/logo.png": "/static/media/logo.a30b502f247e3d914071.png",
     "static/media/fontawesome-webfont.eot": "/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
@@ -21,6 +21,6 @@
   },
   "entrypoints": [
     "static/css/main.00596eb2.css",
-    "static/js/main.cfa13635.js"
+    "static/js/main.46c58d2e.js"
   ]
 }
